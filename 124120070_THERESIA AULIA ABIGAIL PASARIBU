@@ -1,0 +1,93 @@
+Challenge 1
+
+
+import locale
+
+try:
+    locale.setlocale(locale.LC_ALL, "id_ID.UTF-8")
+except locale.Error:
+
+    locale.setlocale(locale.LC_ALL, "")
+
+
+class Belanja:
+    """Kelas untuk menghitung total belanja dengan diskon"""
+
+    def __init__(self, harga: int, jumlah: int, diskon: int = 0):
+        if harga < 0 or jumlah < 0 or diskon < 0:
+            raise ValueError("Harga, jumlah, dan diskon tidak boleh negatif.")
+
+        self.harga = harga
+        self.jumlah = jumlah
+        self.diskon = diskon
+
+    def hitung_total(self) -> int:
+        total = self.harga * self.jumlah
+        if self.diskon > 0:
+            total -= total * (self.diskon / 100)
+        return int(total)
+
+    def format_rupiah(self, angka: int) -> str:
+        try:
+            return locale.currency(angka, grouping=True, symbol="Rp ")
+        except Exception:
+            return f"Rp {angka:,}"  
+
+    def ringkasan(self) -> str:
+        return (
+            f"Harga Barang : {self.format_rupiah(self.harga)}\n"
+            f"Jumlah       : {self.jumlah}\n"
+            f"Diskon       : {self.diskon}%\n"
+            f"---------------------------------\n"
+            f"Total Belanja: {self.format_rupiah(self.hitung_total())}\n"
+        )
+
+
+def main():
+    print("=== Program Kasir Belanja Sederhana ===\n")
+    try:
+        harga = int(input("Masukkan harga barang (Rp): "))
+        jumlah = int(input("Masukkan jumlah barang    : "))
+        diskon_input = input("Masukkan diskon (%)       : ")
+
+        diskon = int(diskon_input) if diskon_input.strip() else 0
+
+        belanja = Belanja(harga, jumlah, diskon)
+        print("\n" + belanja.ringkasan())
+
+    except ValueError as e:
+        print(f"[ERROR] Input tidak valid: {e}")
+
+
+if __name__ == "__main__":
+    main()
+
+
+-------------------------------------------------------------------------------------
+CHALLENGE 2
+def c_to_f(c):
+    """Konversi Celcius ke Fahrenheit"""
+    return (c * 9/5) + 32
+
+def f_to_c(f):
+    """Konversi Fahrenheit ke Celcius"""
+    return (f - 32) * 5/9
+
+from konversi import c_to_f, f_to_c
+
+print("=== Program Konversi Suhu ===")
+print("1. Celcius -> Fahrenheit")
+print("2. Fahrenheit -> Celcius")
+
+pilihan = input("Pilih jenis konversi (1/2): ")
+
+if pilihan == "1":
+    c = float(input("Masukkan suhu Celcius: "))
+    print(f"Hasil: {c}°C = {c_to_f(c):.1f}°F")
+
+elif pilihan == "2":
+    f = float(input("Masukkan suhu Fahrenheit: "))
+    print(f"Hasil: {f}°F = {f_to_c(f):.1f}°C")
+
+else:
+    print("Pilihan tidak valid!")
