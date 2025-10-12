@@ -1,0 +1,52 @@
+Peretemuan 3 Challenge 1
+
+def hitung_total(harga, jumlah, diskon=0):
+    return harga * jumlah * (1 - diskon / 100)
+
+while True:
+    harga = float(input("\nMasukkan harga barang: "))
+    jumlah = int(input("Masukkan jumlah barang: "))
+    diskon = float(input("Masukkan diskon (%): "))
+
+    total = hitung_total(harga, jumlah, diskon)
+    print(f"Total belanja = Rp{total:,.2f}")
+
+    lagi = input("Hitung lagi? (y/n): ").lower()
+    if lagi != "y":
+        break
+
+-------------------------------------------------------------------------------------
+Challenge 2
+# File 1. Konversi.py
+def c_to_f(c):
+    return (c * 9/5) + 32
+
+def f_to_c(f):
+    return (f - 32) * 5/9
+
+# File 2. main.py
+import konversi
+
+def main():
+    while True:
+        print("\n=== Konversi Suhu ===")
+        print("1. Celcius ➜ Fahrenheit")
+        print("2. Fahrenheit ➜ Celcius")
+        print("3. Keluar")
+
+        pilihan = input("Pilih menu: ")
+
+        if pilihan == "1":
+            c = float(input("Masukkan suhu Celcius: "))
+            print(f"Hasil = {konversi.c_to_f(c):.2f}°F")
+        elif pilihan == "2":
+            f = float(input("Masukkan suhu Fahrenheit: "))
+            print(f"Hasil = {konversi.f_to_c(f):.2f}°C")
+        elif pilihan == "3":
+            print("Terima kasih telah menggunakan program ini!")
+            break
+        else:
+            print("Pilihan tidak valid!")
+
+if __name__ == "__main__":
+    main()
