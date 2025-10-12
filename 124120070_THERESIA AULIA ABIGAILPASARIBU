@@ -1,0 +1,37 @@
+Pertemuan ke 4 
+# Challenge: Sistem Data Survey Seismik
+
+data_survey = [
+    {"survey": "S1", "trace_id": 101, "QC_flag": "GOOD", "receiver": "R1"},
+    {"survey": "S1", "trace_id": 102, "QC_flag": "BAD",  "receiver": "R2"},
+    {"survey": "S2", "trace_id": 201, "QC_flag": "GOOD", "receiver": "R3"},
+    {"survey": "S2", "trace_id": 202, "QC_flag": "BAD",  "receiver": "R1"},
+    {"survey": "S2", "trace_id": 203, "QC_flag": "GOOD", "receiver": "R2"},
+    {"survey": "S3", "trace_id": 301, "QC_flag": "GOOD", "receiver": "R1"},
+    {"survey": "S3", "trace_id": 302, "QC_flag": "GOOD", "receiver": "R3"},
+    {"survey": "S3", "trace_id": 303, "QC_flag": "BAD",  "receiver": "R2"},
+    {"survey": "S3", "trace_id": 304, "QC_flag": "GOOD", "receiver": "R2"},
+]
+
+# 1️⃣ Tampilkan semua trace_id yang memiliki QC_flag = BAD
+bad_trace = [d["trace_id"] for d in data_survey if d["QC_flag"] == "BAD"]
+print("Trace ID dengan QC_flag = BAD:", bad_trace)
+
+# 2️⃣ Hitung jumlah total trace dari seluruh survey
+total_trace = len(data_survey)
+print("Total trace dari seluruh survey:", total_trace)
+
+# 3️⃣ Cari survey yang memiliki jumlah trace paling banyak
+from collections import Counter
+
+survey_count = Counter([d["survey"] for d in data_survey])
+survey_terbanyak = max(survey_count, key=survey_count.get)
+print("Survey dengan jumlah trace terbanyak:", survey_terbanyak, "(", survey_count[survey_terbanyak], "trace )")
+
+# 4️⃣ Buat set berisi semua receiver unik
+receiver_unik = {d["receiver"] for d in data_survey}
+print("Receiver unik:", receiver_unik)
+
+# 5️⃣ Buat dictionary baru {"receiver": jumlah_trace}
+receiver_count = Counter([d["receiver"] for d in data_survey])
+print("Jumlah trace per receiver:", dict(receiver_count))
