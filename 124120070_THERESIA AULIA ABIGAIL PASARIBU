@@ -1,0 +1,67 @@
+PERTEMUAN KE 5 
+# Challenge 1: Class Sensor
+
+class Sensor:
+    def __init__(self, id_sensor, lokasi, jenis):
+        self.id_sensor = id_sensor
+        self.lokasi = lokasi
+        self.jenis = jenis
+
+    def info(self):
+        return f"Sensor ID: {self.id_sensor}, Lokasi: {self.lokasi}, Jenis: {self.jenis}"
+
+
+class SensorSeismik(Sensor):
+    def __init__(self, id_sensor, lokasi, jenis, frekuensi_sampling, amplitudo):
+        super().__init__(id_sensor, lokasi, jenis)
+        self.frekuensi_sampling = frekuensi_sampling
+        self.amplitudo = amplitudo 
+
+    def jumlah_sampel(self):
+        return len(self.amplitudo)
+
+    def info(self):
+        return (
+            f"{super().info()}, Frekuensi Sampling: {self.frekuensi_sampling} Hz, "
+            f"Jumlah Sampel: {self.jumlah_sampel()}"
+        )
+
+sensor1 = SensorSeismik(
+    id_sensor="S01",
+    lokasi="Sumatera",
+    jenis="Seismik",
+    frekuensi_sampling=100,
+    amplitudo=[0.1, 0.2, 0.15, 0.18, 0.22]
+)
+
+print(sensor1.info())
+print("Total data amplitudo:", sensor1.jumlah_sampel())
+
+===================================================================================================
+# Challenge 2: Class Survey
+
+from abc import ABC, abstractmethod
+
+class Survey(ABC):
+    @abstractmethod
+    def processing(self):
+        pass
+        
+class SeismicSurvey(Survey):
+    def processing(self):
+        print("Processing Seismic Data: applying filtering and stacking...")
+
+class GravitySurvey(Survey):
+    def processing(self):
+        print("Processing Gravity Data: applying upward continuation...")
+        
+class MagnetikSurvey(Survey):
+    def processing(self):
+        print("Processing Magnetic Data: performing anomaly mapping...")
+
+# ======== Uji Program ========
+surveys = [SeismicSurvey(), GravitySurvey(), MagnetikSurvey()]
+
+print("\n=== Processing Semua Survey ===")
+for s in surveys:
+    s.processing()
